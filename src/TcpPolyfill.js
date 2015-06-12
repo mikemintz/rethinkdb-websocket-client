@@ -50,7 +50,7 @@ export function Socket(options) {
     };
 
     ws.onerror = event => {
-      emitter.emit('error', event.message);
+      emitter.emit('error', event);
     };
 
     ws.onmessage = event => {
