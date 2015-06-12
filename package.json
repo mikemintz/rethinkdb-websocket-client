@@ -1,0 +1,33 @@
+{
+  "name": "rethinkdb-websocket-client",
+  "version": "0.1.0",
+  "description": "RethinkDB driver monkey-patched to connect via WebSocket. Works in browser.",
+  "author": "Mike Mintz",
+  "license": "MIT",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/mikemintz/rethinkdb-websocket-client.git"
+  },
+  "scripts": {
+    "prepublish": "webpack"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "blob-to-buffer": "1.2.3",
+    "bluebird": "2.9.27",
+    "eventemitter2": "0.4.14",
+    "rethinkdb": "2.0.0-2"
+  },
+  "devDependencies": {
+    "babel": "5.5.6",
+    "babel-core": "5.5.6",
+    "babel-eslint": "3.1.15",
+    "babel-loader": "5.1.4",
+    "eslint": "0.22.1",
+    "eslint-loader": "0.12.0",
+    "webpack": "1.9.10"
+  }
+}
