@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/rethinkdb-websocket-client.svg)](http://badge.fury.io/js/rethinkdb-websocket-client)
+
 # rethinkdb-websocket-client
 
 RethinkDB JavaScript driver monkey-patched to connect via WebSocket. Works in
@@ -14,8 +16,17 @@ over the wire is unchanged.
 
 Since RethinkDB does not accept WebSocket connections, you will have to use a
 proxy on the server that accepts WebSocket connects and proxies them to the
-RethinkDB TCP port. This has been tested with
-[websockify](https://github.com/kanaka/websockify).
+RethinkDB TCP port:
+* [websockify](https://github.com/kanaka/websockify) is a server that listens
+  for incoming WebSocket connections, and blindly forwards traffic in both
+  directions to a specified TCP address. To set up a websockify server at that
+  forwards WebSocket port 8015 to RethinkDB running locally on port 28015, run
+  `./run localhost:8015 localhost:28015`
+* [rethinkdb-websocket-server](https://github.com/mikemintz/rethinkdb-websocket-server)
+  is a node.js server library that functions similarly to websockify. However,
+  it parses incoming RethinkDB queries from browser clients and runs them
+  through custom validation before forwarding the query to the RethinkDB
+  server.
 
 ## How do I use this?
 
