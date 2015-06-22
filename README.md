@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/rethinkdb-websocket-client.svg)](http://badge.fury.io/js/rethinkdb-websocket-client)
+[![npm version](https://img.shields.io/npm/v/rethinkdb-websocket-client.svg)](https://www.npmjs.com/package/rethinkdb-websocket-client)
 
 # rethinkdb-websocket-client
 
