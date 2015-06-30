@@ -62,3 +62,6 @@ RethinkdbWebsocketClient.connect(options).then(function(conn) {
   });
 });
 ```
+
+For [React](http://facebook.github.io/react/) integration, see the
+[react-rethinkdb](https://github.com/mikemintz/react-rethinkdb) library.
