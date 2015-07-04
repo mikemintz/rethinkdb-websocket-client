@@ -9,7 +9,7 @@
     "url": "https://github.com/mikemintz/rethinkdb-websocket-client.git"
   },
   "scripts": {
-    "prepublish": "webpack"
+    "prepublish": "webpack --config webpack/browser.config.js && webpack --config webpack/node.config.js"
   },
   "main": "dist/index.js",
   "files": [
@@ -20,7 +20,8 @@
     "bluebird": "^2.9.27",
     "eventemitter2": "^0.4.14",
     "node-libs-browser": ">= 0.4.0 <=0.6.0",
-    "rethinkdb": "^2.0.0"
+    "rethinkdb": "^2.0.0",
+    "ws": "^0.7.2"
   },
   "devDependencies": {
     "babel": "^5.5.6",
