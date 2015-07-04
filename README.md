@@ -63,5 +63,13 @@ RethinkdbWebsocketClient.connect(options).then(function(conn) {
 });
 ```
 
+## Other environments
+
 For [React](http://facebook.github.io/react/) integration, see the
 [react-rethinkdb](https://github.com/mikemintz/react-rethinkdb) library.
+
+To use on the server in node.js (as opposed to the browser), use the following
+path when importing the module:
+```js
+var RethinkdbWebsocketClient = require('rethinkdb-websocket-client/dist/node');
+```
