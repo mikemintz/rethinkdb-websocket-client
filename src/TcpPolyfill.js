@@ -55,7 +55,7 @@ export function Socket(options) {
 
     ws.onmessage = event => {
       const data = event.data;
-      if (data instanceof Blob) {
+      if (typeof Blob !== 'undefined' && data instanceof Blob) {
         blobToBuffer(data, (err, buffer) => {
           if (err) {
             throw err;
