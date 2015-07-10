@@ -70,7 +70,7 @@ export function Socket(options) {
 
   this.end = data => {
     if (data !== undefined) {
-      ws.send(data);
+      this.write(data);
     }
     ws.close();
   };
@@ -80,7 +80,13 @@ export function Socket(options) {
   };
 
   this.write = data => {
-    ws.send(data);
+    // Convert data (string or node.js Buffer) to ArrayBuffer for WebSocket
+    const arrayBuffer = new ArrayBuffer(data.length);
+    const view = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < data.length; ++i) {
+      view[i] = data[i];
+    }
+    ws.send(arrayBuffer);
   };
 
   this.setNoDelay = noDelay => {};
