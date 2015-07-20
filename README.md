@@ -51,6 +51,7 @@ var options = {
   wsProtocols: ['binary'], // sub-protocols for websocket, required for websockify
   secure: false,           // set true to use secure TLS websockets
   db: 'test',              // default database, passed to rethinkdb.connect
+  simulatedLatencyMs: 100, // wait 100ms before sending each message (optional)
 };
 
 RethinkdbWebsocketClient.connect(options).then(function(conn) {

@@ -7,6 +7,7 @@ let tcpPolyfillOptions = {
   path: '/',
   secure: false,
   wsProtocols: undefined,
+  simulatedLatencyMs: undefined,
 };
 
 const notImpl = name => () => {
@@ -17,6 +18,7 @@ export function configureTcpPolyfill(options) {
   tcpPolyfillOptions.path = options.path;
   tcpPolyfillOptions.secure = options.secure;
   tcpPolyfillOptions.wsProtocols = options.wsProtocols;
+  tcpPolyfillOptions.simulatedLatencyMs = options.simulatedLatencyMs;
 }
 
 export function Socket(options) {
@@ -32,6 +34,7 @@ export function Socket(options) {
   let ws = null;
 
   this.connect = (port, host, connectListener) => {
+    this._simulatedLatencyMs = tcpPolyfillOptions.simulatedLatencyMs;
     const protocol = tcpPolyfillOptions.secure ? 'wss' : 'ws';
     const path = tcpPolyfillOptions.path;
     const url = `${protocol}://${host}:${port}${path}`;
@@ -86,7 +89,12 @@ export function Socket(options) {
     for (let i = 0; i < data.length; ++i) {
       view[i] = data[i];
     }
-    ws.send(arrayBuffer);
+    const delay = this._simulatedLatencyMs;
+    if (typeof delay === 'number' && delay > 0) {
+      setTimeout(() => ws.send(arrayBuffer), delay);
+    } else {
+      ws.send(arrayBuffer);
+    }
   };
 
   this.setNoDelay = noDelay => {};
