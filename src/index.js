@@ -2,6 +2,7 @@
 
 import Promise from 'bluebird';
 import rethinkdb from 'rethinkdb';
+import protodef from 'rethinkdb/proto-def';
 import {configureTcpPolyfill} from './TcpPolyfill';
 
 function connect({host, port, path, secure, wsProtocols, db, simulatedLatencyMs}) {
@@ -17,6 +18,7 @@ function connect({host, port, path, secure, wsProtocols, db, simulatedLatencyMs}
 
 export {
   rethinkdb,
+  protodef,
   Promise,
   connect,
 };
