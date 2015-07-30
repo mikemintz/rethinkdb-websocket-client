@@ -9,6 +9,7 @@
     "url": "https://github.com/mikemintz/rethinkdb-websocket-client.git"
   },
   "scripts": {
+    "test": "mocha  --compilers js:babel/register",
     "prepublish": "webpack --config webpack/browser.config.js && webpack --config webpack/node.config.js"
   },
   "main": "dist/index.js",
@@ -30,6 +31,7 @@
     "babel-loader": "^5.1.4",
     "eslint": "^0.22.1",
     "eslint-loader": "^0.12.0",
+    "mocha": "^2.2.5",
     "webpack": "^1.9.10"
   }
 }
