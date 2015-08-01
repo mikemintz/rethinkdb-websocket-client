@@ -8,7 +8,7 @@ var config = {
   output: {
     library: 'RethinkdbWebsocketClient',
     libraryTarget: 'umd',
-    path:  __dirname + '/../dist',
+    path: __dirname + '/../dist',
     filename: 'index.js'
   },
   plugins: [],
