@@ -56,9 +56,9 @@ describe('RethinkdbWebsocketClient', () => {
               };
               const responsePayloadBuf = new Buffer(JSON.stringify(responseJson));
               const responseHeaderBuf = new Buffer(12);
-              responseHeaderBuf.writeUInt32LE(cmdBuf.readUInt32LE(0), 0) // token 1st 4 bytes
-              responseHeaderBuf.writeUInt32LE(cmdBuf.readUInt32LE(4), 4) // token 2nd 4 bytes
-              responseHeaderBuf.writeUInt32LE(responsePayloadBuf.length, 8)
+              responseHeaderBuf.writeUInt32LE(cmdBuf.readUInt32LE(0), 0); // token 1st 4 bytes
+              responseHeaderBuf.writeUInt32LE(cmdBuf.readUInt32LE(4), 4); // token 2nd 4 bytes
+              responseHeaderBuf.writeUInt32LE(responsePayloadBuf.length, 8);
               webSocket.send(Buffer.concat([responseHeaderBuf, responsePayloadBuf]));
               return queryEndOffset;
             }
