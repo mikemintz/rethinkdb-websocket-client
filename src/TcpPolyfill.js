@@ -1,5 +1,3 @@
-'use strict';
-
 import blobToBuffer from 'blob-to-buffer';
 import EventEmitter2 from 'eventemitter2';
 
