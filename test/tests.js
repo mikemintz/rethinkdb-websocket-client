@@ -1,3 +1,7 @@
+'use strict';
+
+/*eslint-env mocha */
+
 import assert from 'assert';
 import {Server} from 'ws';
 import {rethinkdb as r, Promise, connect, protodef} from '../dist/node';
@@ -84,10 +88,10 @@ describe('RethinkdbWebsocketClient', () => {
       const {address, port} = server._server.address();
       const connectOptions = {host: address, port, path, db};
       connect(connectOptions).then(conn => {
-        queryRequest.run(conn, (err, cursor) => {
-          assert(!err);
-          cursor.toArray((err, results) => {
-            assert(!err);
+        queryRequest.run(conn, (err1, cursor) => {
+          assert(!err1);
+          cursor.toArray((err2, results) => {
+            assert(!err2);
             assert.deepEqual(results, queryResults);
             done();
           });
