@@ -96,8 +96,9 @@ export function Socket(options) {
   };
 
   this.setNoDelay = noDelay => {};
+  this.setKeepAlive = (enable, initialDelay) => {};
 
-  const notImplMethods = ['setEncoding', 'pause', 'resume', 'setTimeout', 'setKeepAlive', 'address', 'unref', 'ref'];
+  const notImplMethods = ['setEncoding', 'pause', 'resume', 'setTimeout', 'address', 'unref', 'ref'];
   notImplMethods.forEach(name => {
     this[name] = notImpl(name);
   });
