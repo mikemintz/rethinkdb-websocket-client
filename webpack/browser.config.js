@@ -1,3 +1,2 @@
-var config = require('./base.config.js');
-
-module.exports = config;
+var isBrowser = true;
+module.exports = require('./base.config.js')(isBrowser);
