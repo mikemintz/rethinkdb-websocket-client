@@ -22,7 +22,7 @@
     "eventemitter2": "^0.4.14",
     "node-libs-browser": ">= 0.4.0 <=0.6.0",
     "rethinkdb": "^2.0.0",
-    "ws": "^0.7.2"
+    "ws": "^0.8.0"
   },
   "devDependencies": {
     "babel": "^5.5.6",
