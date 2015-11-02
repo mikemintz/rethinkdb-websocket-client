@@ -14,9 +14,17 @@ function connect({host, port, path, secure, wsProtocols, db, simulatedLatencyMs}
   return connectionPromise;
 }
 
+const RethinkdbWebsocketClient = {
+  rethinkdb,
+  protodef,
+  Promise,
+  connect,
+};
+
 export {
   rethinkdb,
   protodef,
   Promise,
   connect,
+  RethinkdbWebsocketClient as default,
 };
