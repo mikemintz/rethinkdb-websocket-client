@@ -63,6 +63,8 @@ export function Socket(options) {
           }
           emitter.emit('data', buffer);
         });
+      } else if (typeof data === 'string' && ws.protocol === 'base64') {
+        emitter.emit('data', new Buffer(data, 'base64'));
       } else {
         emitter.emit('data', data);
       }
@@ -81,17 +83,24 @@ export function Socket(options) {
   };
 
   this.write = data => {
-    // Convert data (string or node.js Buffer) to ArrayBuffer for WebSocket
-    const arrayBuffer = new ArrayBuffer(data.length);
-    const view = new Uint8Array(arrayBuffer);
-    for (let i = 0; i < data.length; ++i) {
-      view[i] = data[i];
+    // Convert data (string or node.js Buffer) to ArrayBuffer or base64 string
+    // for WebSocket
+    let outgoingMessage = null;
+    if (ws.protocol === 'base64') {
+      outgoingMessage = (new Buffer(data)).toString('base64');
+    } else {
+      const arrayBuffer = new ArrayBuffer(data.length);
+      const view = new Uint8Array(arrayBuffer);
+      for (let i = 0; i < data.length; ++i) {
+        view[i] = data[i];
+      }
+      outgoingMessage = arrayBuffer;
     }
     const delay = this._simulatedLatencyMs;
     if (typeof delay === 'number' && delay > 0) {
-      setTimeout(() => ws.send(arrayBuffer), delay);
+      setTimeout(() => ws.send(outgoingMessage), delay);
     } else {
-      ws.send(arrayBuffer);
+      ws.send(outgoingMessage);
     }
   };
 
