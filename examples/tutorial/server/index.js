@@ -21,5 +21,6 @@ RethinkdbWebsocketServer.listen({
 });
 
 // Start the HTTP server on port 8015
-httpServer.listen(8015);
-console.log('Tutorial server started');
+const port = 8015;
+httpServer.listen(port);
+console.log(`Tutorial server started on port ${port}`);
