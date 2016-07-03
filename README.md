@@ -4,7 +4,7 @@
 # rethinkdb-websocket-client
 
 RethinkDB JavaScript driver monkey-patched to connect via WebSocket. Works in
-browser.
+browser, Electron and Node.JS environments.
 
 ## What is this?
 
@@ -67,11 +67,34 @@ RethinkdbWebsocketClient.connect(options).then(function(conn) {
 
 ## Other environments
 
+### React
+
 For [React](http://facebook.github.io/react/) integration, see the
 [react-rethinkdb](https://github.com/mikemintz/react-rethinkdb) library.
 
-To use on the server in node.js (as opposed to the browser), use the following
+### Node.JS and Electron
+
+To use inside Electron or on the server in Node.JS (as opposed to the browser), use the following
 path when importing the module:
 ```js
 var RethinkdbWebsocketClient = require('rethinkdb-websocket-client/dist/node');
+```
+
+If you need to route the WebSocket through a proxy server you can provide your own `agent` via the `wsProtocols` configuration parameter, e.g.:
+
+```js
+var Socks = require('socks');
+var options = {
+  host: 'localhost',       // hostname of the websocket server
+  port: 8015,              // port number of the websocket server
+  path: '/',               // HTTP path to websocket route
+  wsProtocols: {
+    agent: new Socks.Agent({
+      proxy: { ipaddress: '127.0.0.1', port: 8080, type: 5 }
+    })
+  },
+  secure: false,           // set true to use secure TLS websockets
+  db: 'test',              // default database, passed to rethinkdb.connect
+  simulatedLatencyMs: 100, // wait 100ms before sending each message (optional)
+};
 ```
