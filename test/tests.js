@@ -30,9 +30,9 @@ describe('RethinkdbWebsocketClient', () => {
             const protocolVersion = buf.readUInt32LE(0);
             const keyLength = buf.readUInt32LE(4);
             const protocolType = buf.readUInt32LE(8);
-            assert(protocolVersion === protodef.VersionDummy.Version.V0_4);
-            assert(keyLength === 0);
-            assert(protocolType === protodef.VersionDummy.Protocol.JSON);
+            assert.strictEqual(protocolVersion, protodef.VersionDummy.Version.V0_4);
+            assert.strictEqual(keyLength, 0);
+            assert.strictEqual(protocolType, protodef.VersionDummy.Protocol.JSON);
             webSocket.send(new Buffer("SUCCESS\u0000"));
             handshakeComplete = true;
             return 12;
@@ -46,7 +46,7 @@ describe('RethinkdbWebsocketClient', () => {
               const cmdBuf = buf.slice(0, queryEndOffset);
               const queryCmdBuf = cmdBuf.slice(12, cmdBuf.length);
               const [type, query, queryOptions] = JSON.parse(queryCmdBuf);
-              assert(type === protodef.Query.QueryType.START);
+              assert.strictEqual(type, protodef.Query.QueryType.START);
               assert.deepEqual(query, queryRequest.build());
               const expectedQueryOptions = {db: [protodef.Term.TermType.DB, [db]]};
               assert.deepEqual(queryOptions, expectedQueryOptions);
