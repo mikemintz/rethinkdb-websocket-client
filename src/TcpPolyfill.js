@@ -56,6 +56,42 @@ export function Socket(options) {
 
     ws.onmessage = event => {
       const data = event.data;
+
+      // Handle incoming message as base64 if ws.protocol is set to base64
+      // or if it's not set at all and we are in a problematic React Native
+      // environment per:
+      // 
+      // https://tools.ietf.org/html/rfc6455#section-11.3.4
+      // https://tools.ietf.org/html/rfc3864
+      // 
+      // We check if this process is running inside React Native by using navigator.product:
+      // 
+      // https://github.com/facebook/react-native/commit/3c65e62183ce05893be0822da217cb803b121c61
+
+      const base64SetByWsClient = (
+        typeof data === 'string' &&
+        ws.protocol === 'base64'
+      );
+
+      const base64SetByUser = (
+        tcpPolyfillOptions.wsProtocols &&
+        tcpPolyfillOptions.wsProtocols.constructor === Array &&
+        tcpPolyfillOptions.wsProtocols.indexOf('base64') >= 0
+      );
+
+      const isRN = (
+        typeof navigator !== 'undefined' &&
+        navigator.product === 'ReactNative'
+      );
+
+      const base64Workaround = (
+        isRN &&
+        base64SetByUser &&
+        !ws.protocol
+      );
+
+      const handleBase64 = base64SetByWsClient || base64Workaround;
+
       if (typeof Blob !== 'undefined' && data instanceof Blob) {
         blobToBuffer(data, (err, buffer) => {
           if (err) {
@@ -63,7 +99,7 @@ export function Socket(options) {
           }
           emitter.emit('data', buffer);
         });
-      } else if (typeof data === 'string' && ws.protocol === 'base64') {
+      } else if (handleBase64) {
         emitter.emit('data', new Buffer(data, 'base64'));
       } else {
         emitter.emit('data', data);
