@@ -60,12 +60,12 @@ export function Socket(options) {
       // Handle incoming message as base64 if ws.protocol is set to base64
       // or if it's not set at all and we are in a problematic React Native
       // environment per:
-      // 
+      //
       // https://tools.ietf.org/html/rfc6455#section-11.3.4
       // https://tools.ietf.org/html/rfc3864
-      // 
+      //
       // We check if this process is running inside React Native by using navigator.product:
-      // 
+      //
       // https://github.com/facebook/react-native/commit/3c65e62183ce05893be0822da217cb803b121c61
 
       const base64SetByWsClient = (
