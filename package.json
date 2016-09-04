@@ -1,6 +1,6 @@
 {
   "name": "rethinkdb-websocket-client",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "RethinkDB driver monkey-patched to connect via WebSocket. Works in browser.",
   "author": "Mike Mintz",
   "license": "MIT",
