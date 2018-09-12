@@ -16,6 +16,7 @@ export function configureTcpPolyfill(options) {
   tcpPolyfillOptions.path = options.path;
   tcpPolyfillOptions.secure = options.secure;
   tcpPolyfillOptions.wsProtocols = options.wsProtocols;
+  tcpPolyfillOptions.wsBinaryType = options.wsBinaryType;
   tcpPolyfillOptions.simulatedLatencyMs = options.simulatedLatencyMs;
 }
 
@@ -37,6 +38,11 @@ export function Socket(options) {
     const path = tcpPolyfillOptions.path;
     const url = `${protocol}://${host}:${port}${path}`;
     ws = new WebSocket(url, tcpPolyfillOptions.wsProtocols);
+
+    if (tcpPolyfillOptions.wsBinaryType) {
+      ws.binaryType = tcpPolyfillOptions.wsBinaryType;
+    }
+
     if (connectListener) {
       emitter.on('connect', connectListener);
     }
@@ -99,6 +105,8 @@ export function Socket(options) {
           }
           emitter.emit('data', buffer);
         });
+      } else if (typeof ArrayBuffer !== 'undefined' && data instanceof ArrayBuffer) {
+        emitter.emit('data', Buffer.from(data));
       } else if (handleBase64) {
         emitter.emit('data', new Buffer(data, 'base64'));
       } else {
