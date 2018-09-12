@@ -5,6 +5,7 @@ let tcpPolyfillOptions = {
   path: '/',
   secure: false,
   wsProtocols: undefined,
+  wsBinaryType: undefined,
   simulatedLatencyMs: undefined,
 };
 
