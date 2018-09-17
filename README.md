@@ -50,6 +50,7 @@ var options = {
   port: 8015,              // port number of the websocket server
   path: '/',               // HTTP path to websocket route
   wsProtocols: ['binary'], // sub-protocols for websocket, required for websockify
+  wsBinary: 'arraybuffer',  // specify which binary type should be used for WS (optional)
   secure: false,           // set true to use secure TLS websockets
   db: 'test',              // default database, passed to rethinkdb.connect
   simulatedLatencyMs: 100, // wait 100ms before sending each message (optional)
